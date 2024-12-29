@@ -10,7 +10,7 @@
 /// Mechanism of ranking the solutions shall be implemented
 /// by derivative type and taken into account in type derivative from algorithm runner.
 /// </remarks>
-public interface ISolution
+public interface IGeneticAlgorithmSolution
 {
     #region Methods
     /// <summary>
@@ -30,6 +30,6 @@ public interface ISolution
     /// <returns>
     /// Descendant solutions, which are the result of performed operation.
     /// </returns>
-    public abstract IEnumerable<ISolution> CombineGenomesWith(ISolution otherSolution);
+    public abstract IEnumerable<IGeneticAlgorithmSolution> CombineGenomesWith(IGeneticAlgorithmSolution otherSolution);
     #endregion
 }

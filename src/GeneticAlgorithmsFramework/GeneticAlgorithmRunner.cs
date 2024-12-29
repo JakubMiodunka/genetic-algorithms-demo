@@ -15,17 +15,17 @@
 ///         When exposure is needed, the derivative class shall convert particular ISolution-type object to its raw, primitive-type-based representation
 ///         (ex. by object serialization or exposing one of its primitive-type property related to its raw value) or create its deep copy and then expose it.
 /// </remarks>
-public abstract class AlgorithmRunner
+public abstract class GeneticAlgorithmRunner
 {
     #region Properties
-    private ISolution[] _populationOfSolutions;
+    private IGeneticAlgorithmSolution[] _populationOfSolutions;
     
     protected readonly Random _randomNumberGenerator;
 
     public readonly int PopulationSize;
     public readonly double MutationProbability;
 
-    protected IEnumerable<ISolution> PopulationOfSolutions
+    protected IEnumerable<IGeneticAlgorithmSolution> PopulationOfSolutions
     {
         get
         {
@@ -70,7 +70,7 @@ public abstract class AlgorithmRunner
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown, when value of at least one argument will be considered as invalid.
     /// </exception>
-    protected AlgorithmRunner(int populationSize, double mutationProbability, int? seedForRandomNumberGenerator = null)
+    protected GeneticAlgorithmRunner(int populationSize, double mutationProbability, int? seedForRandomNumberGenerator = null)
     {
         #region Arguments validation
         if (populationSize < 2)
@@ -101,7 +101,7 @@ public abstract class AlgorithmRunner
         CurrentGeneration = 1;
         MutationProbability = mutationProbability;
 
-        _populationOfSolutions = Array.Empty<ISolution>();
+        _populationOfSolutions = Array.Empty<IGeneticAlgorithmSolution>();
 
         PopulationOfSolutions = PrepareInitialPopulation();
         
@@ -116,7 +116,7 @@ public abstract class AlgorithmRunner
     /// <returns>
     /// Valid solutions, which shall be used in evolution process as first generation.
     /// </returns>
-    protected abstract IEnumerable<ISolution> PrepareInitialPopulation();
+    protected abstract IEnumerable<IGeneticAlgorithmSolution> PrepareInitialPopulation();
     #endregion
 
     #region Interactions
@@ -129,9 +129,9 @@ public abstract class AlgorithmRunner
     /// <exception cref="InvalidOperationException">
     /// Thrown, when internal data is not consistent.
     /// </exception>
-    private ISolution[] CreateNewGeneration()
+    private IGeneticAlgorithmSolution[] CreateNewGeneration()
     {
-        var newPopulation = new List<ISolution>();
+        var newPopulation = new List<IGeneticAlgorithmSolution>();
 
         while (newPopulation.Count() < PopulationSize)
         {
@@ -144,9 +144,9 @@ public abstract class AlgorithmRunner
                 throw new InvalidOperationException(ErrorMessage);
             }
 
-            IEnumerable<ISolution> children = mother.CombineGenomesWith(father);
+            IEnumerable<IGeneticAlgorithmSolution> children = mother.CombineGenomesWith(father);
 
-            foreach (ISolution child in children)
+            foreach (IGeneticAlgorithmSolution child in children)
             {
                 if (_randomNumberGenerator.NextDouble() < MutationProbability)
                 {
@@ -184,7 +184,7 @@ public abstract class AlgorithmRunner
     /// Solutions, which genomes shall be crossed to create a new descendant solution.
     /// Both picked solutions shall be contained by current population.
     /// </returns>
-    protected abstract (ISolution, ISolution) PickParents();
+    protected abstract (IGeneticAlgorithmSolution, IGeneticAlgorithmSolution) PickParents();
 
     /// <summary>
     /// Triggers runtime of the algorithm.
@@ -193,7 +193,7 @@ public abstract class AlgorithmRunner
     /// Action, which shall be called every time a new generation of solutions is generated.
     /// Is optional.
     /// </param>
-    public void Run(Action<AlgorithmRunner>? newGenerationCallback = null)
+    public void Run(Action<GeneticAlgorithmRunner>? newGenerationCallback = null)
     {
         while (!ShallAlgorithmStop())
         {

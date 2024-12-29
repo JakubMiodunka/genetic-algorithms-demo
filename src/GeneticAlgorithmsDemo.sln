@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithmsFramework", "GeneticAlgorithmsFramework\GeneticAlgorithmsFramework.csproj", "{B37FDD5D-ECDD-4069-8484-A42EC3106761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorMatchingAlgorithm", "ColorMatchingAlgorithm\ColorMatchingAlgorithm.csproj", "{559DFDBC-9E9B-4AF8-B6F1-2021E60D68B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B37FDD5D-ECDD-4069-8484-A42EC3106761}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B37FDD5D-ECDD-4069-8484-A42EC3106761}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B37FDD5D-ECDD-4069-8484-A42EC3106761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559DFDBC-9E9B-4AF8-B6F1-2021E60D68B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559DFDBC-9E9B-4AF8-B6F1-2021E60D68B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559DFDBC-9E9B-4AF8-B6F1-2021E60D68B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559DFDBC-9E9B-4AF8-B6F1-2021E60D68B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
