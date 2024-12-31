@@ -4,3 +4,5 @@ src/.vs/
 # Directories used during application build.
 src/GeneticAlgorithmsFramework/bin/
 src/GeneticAlgorithmsFramework/obj/
+src/ColorMatchingAlgorithm/bin/
+src/ColorMatchingAlgorithm/obj/

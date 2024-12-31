@@ -25,13 +25,13 @@ public abstract class GeneticAlgorithmRunner
     public readonly int PopulationSize;
     public readonly double MutationProbability;
 
-    protected IEnumerable<IGeneticAlgorithmSolution> PopulationOfSolutions
+    protected virtual IEnumerable<IGeneticAlgorithmSolution> PopulationOfSolutions
     {
         get
         {
             return _populationOfSolutions;
         }
-        set
+        private set
         {
             if (value.Count() != PopulationSize)
             {
@@ -65,12 +65,12 @@ public abstract class GeneticAlgorithmRunner
     /// </param>
     /// <param name="seedForRandomNumberGenerator">
     /// Value of seed, using which internal pseudo-random number generator shall be initialized.
-    /// Specifying a seed is optional - when not specified seed will be chosen automatically.
+    /// When null value will be specified, seed will be chosen automatically.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown, when value of at least one argument will be considered as invalid.
     /// </exception>
-    protected GeneticAlgorithmRunner(int populationSize, double mutationProbability, int? seedForRandomNumberGenerator = null)
+    protected GeneticAlgorithmRunner(int populationSize, double mutationProbability, int? seedForRandomNumberGenerator)
     {
         #region Arguments validation
         if (populationSize < 2)
@@ -98,7 +98,7 @@ public abstract class GeneticAlgorithmRunner
         }
 
         PopulationSize = populationSize;
-        CurrentGeneration = 1;
+        CurrentGeneration = 0;
         MutationProbability = mutationProbability;
 
         _populationOfSolutions = Array.Empty<IGeneticAlgorithmSolution>();

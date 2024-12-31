@@ -45,7 +45,7 @@ public sealed class ColorMatchingAlgorithmSolution: IGeneticAlgorithmSolution
     /// <exception cref="ArgumentNullException">
     /// Thrown, when at least one argument is a null reference.
     /// </exception>
-    public static ColorMatchingAlgorithmSolution Random(Random randomNumberGenerator)
+    public static ColorMatchingAlgorithmSolution RandomColor(Random randomNumberGenerator)
     {
         #region Arguments validation
         if (randomNumberGenerator is null)
@@ -134,7 +134,20 @@ public sealed class ColorMatchingAlgorithmSolution: IGeneticAlgorithmSolution
     /// </returns>
     public int ComputeFitnessScore(ColorMatchingAlgorithmSolution referenceColor)
     {
-        throw new NotImplementedException();  // TODO: Implement.
+        int deviationFromReference = 0;
+
+        for (int channelIndex = 0; channelIndex < NumberOfChannels; channelIndex++)
+        {
+            int channelValue = _channelsValues[channelIndex];
+            int referenceChannelValue = referenceColor._channelsValues[channelIndex];
+            
+            int channelDeviation = Math.Abs(referenceChannelValue - channelValue);
+            deviationFromReference += channelDeviation;
+        }
+
+        int maxFitnessScore = MaxChannelValue * NumberOfChannels;
+        return maxFitnessScore - deviationFromReference;
+
     }
 
     /// <summary>
@@ -195,7 +208,7 @@ public sealed class ColorMatchingAlgorithmSolution: IGeneticAlgorithmSolution
     public void Mutate()
     {
         int randomChannelValue = _randomNumberGenerator.Next(MinChannelValue, MaxChannelValue + 1); // Generation range is exclusive at the top.
-        int randomChannelIndex = _randomNumberGenerator.Next(0, NumberOfChannels);
+        int randomChannelIndex = _randomNumberGenerator.Next(NumberOfChannels);
 
         _channelsValues[randomChannelIndex] = randomChannelValue;
     }
